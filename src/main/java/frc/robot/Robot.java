@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -174,6 +177,62 @@ public class Robot extends TimedRobot {
     elevator.close();
     super.close();
   }
+
+  // method to convert pathplannerpath to tarjectory 
+  public void ExportPathPlannerPath(PathPlannerPath path) {
+    /* 
+     * starting to convert a specific pathPlannerPath to wpilib trajectory 
+     * this should be method or own utility class for conversion    */
+
+    // FileOutputStream stream = new FileOutputStream()
+    // try {
+    //    content = new BufferedInputStream();
+    // } catch (Exception e) {
+    //   System.out.println("File output stream: " + e);
+    // }
+
+    try {
+      pointList.clear();
+      trimList.clear();
+      pointList= path.getAllPathPoints();
+      } catch (Exception e) { 
+        System.out.println("error" + e); 
+      }
+
+          for (PathPoint  point : pointList) {
+           if ( pointList.indexOf(point)%3 !=0 ) {
+              trimList.add(point.position);
+           } else {  /* skip the point do nothing  */   }
+          }
+
+      // remove the LAST and FIRST entree without modifying original pointList
+      trimList.remove(0 );              // FIRST pose2d position removed
+      trimList.remove(trimList.size()-1);    // LAST pose2d position removed
+
+        start = path.getWaypoints().get(0).anchor().div(1);
+        end = path.getWaypoints().get(1).anchor().div(1);
+        startRotation = path.getIdealStartingState().rotation();
+        endRotation = path.getGoalEndState().rotation();
+
+      startPose = new Pose2d( start , startRotation);
+      endPose = new Pose2d(end , endRotation);
+
+      
+      // setting up print of pathPlanning path 
+      System.out.println("***** Path: "+ path.name.toString() + "***** \n");
+        System.out.println("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
+        System.out.println("List.of ( "); 
+        for (int j=0; j<trimList.size();j++)  {
+            if (j==trimList.size()-1) {   //is last waypoint, use different closing characters
+              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+            } else { // report out values of waypoints
+              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
+            }
+          }
+        System.out.println("  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config);" );
+        System.out.println("\n *****END PATH***** ");
+
+}
 
   // method to convert pathplannerpath to tarjectory 
   public Trajectory ChangePathPlannerPathtoTrajectory(PathPlannerPath path,boolean reduce) {
