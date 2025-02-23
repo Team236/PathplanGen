@@ -214,7 +214,7 @@ public class Robot extends TimedRobot {
         System.out.println("List.of ( "); 
         for (int j=0; j<trimList.size();j++)  {
             if (j==trimList.size()-1) {   //is last waypoint reported use different closing characters
-              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+              System.out.println( "new Translation2d(" + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
             } else { // report out values of waypoints
               System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
             }
