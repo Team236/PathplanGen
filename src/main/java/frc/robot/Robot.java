@@ -213,8 +213,8 @@ public class Robot extends TimedRobot {
         System.out.println("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
         System.out.println("List.of ( "); 
         for (int j=0; j<trimList.size();j++)  {
-            if (j==trimList.size()-1) {   //is last waypoint reported use different closing characters
-              System.out.println( "new Translation2d(" + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+            if (j==trimList.size()-1) {   //is last waypoint, use different closing characters
+              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
             } else { // report out values of waypoints
               System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
             }
