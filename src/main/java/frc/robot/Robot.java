@@ -209,14 +209,18 @@ public class Robot extends TimedRobot {
       TrajectoryConfig config = new TrajectoryConfig(4, 3.9) ;
 
       // setting up print of pathPlanning path 
-      System.out.println("***** Path: "+ path.name.toString() + "***** ");
-        System.out.println("List.of (");
-        System.out.println("new Pose2d("+startPose.getTranslation().getX()+"," + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +"))," );
-          for (Translation2d  positions : trimList) {
-            System.out.println( "new Translation2d(" + positions.getX()+"," + positions.getY() + ")," );
+      System.out.println("***** Path: "+ path.name.toString() + "***** \n");
+        System.out.println("new Pose2d("+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +"))," );
+        System.out.println("List.of ("); 
+        for (int j=0; j<trimList.size();j++)  {
+            if (j==trimList.size()-1) {   //is last waypoint reported use different closing characters
+              System.out.println( "new Translation2d(" + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+            } else { // report out values of waypoints
+              System.out.println( "new Translation2d(" + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
+            }
           }
-        System.out.println("), \n new Pose2d("+endPose.getTranslation().getX()+"," + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),config" );
-        System.out.println(" *****END PATH***** ");
+        System.out.println("new Pose2d("+endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config" );
+        System.out.println("\n *****END PATH***** ");
 
     // convert to trajectory 
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
