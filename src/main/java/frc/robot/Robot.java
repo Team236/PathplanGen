@@ -5,7 +5,11 @@
 package frc.robot;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -54,12 +58,15 @@ public class Robot extends TimedRobot {
   public List<Translation2d> midWaypoints = new ArrayList<>();
   private Translation2d start, end;
   private RobotConfig roboConfig;
+  private FileOutputStream fileOut;
+  private BufferedWriter bufferedWriter;
     
 // private List<Translation2d> interiorWaypoints = null;
 // private List<Waypoint> waypointList = null;
 
   public Robot() {
-    
+    bufferedWriter = new BufferedWriter(null);
+
     // PATHPLANNER - read specific path into currentpath from pathplanner file 
     // keep this and other reads early in Robot 
     SmartDashboard.putData("Field", m_field);
@@ -83,63 +90,28 @@ public class Robot extends TimedRobot {
       }  catch (Exception e ) { 
         System.out.println("Exception currentPath read :");e.printStackTrace();
       }       
-            Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath,false);
+          ExportPathPlannerPath(currentPath);
+          //Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath,false);
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.mirrorPath(),false);
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.flipPath(),false);
-            this.displayPathData(str,traj,false,false); 
-    }
-        
- 
-    // PATHPLANNER - required to run pathplanner Auto methodologies not required if running wpilib trajectories
-    // can keep in RobotsConfig or Robots for this simple command class layout
-        // try {
-          // roboConfig = RobotConfig.fromGUISettings();
-            // } catch (IOException e) {
-              // System.out.println("IO exception fromGUISettings :");e.printStackTrace();
-            // } catch (ParseException e) {
-              // System.out.println("ParseException fromGUISettings :");e.printStackTrace();
-    // }
+            this.displayPathData(str,currentPath); 
 
-    // PATHPLANNER - reading a multipath pathplanner auto as pathList 
-    // TODO Evaluate how this is implements parrallel series commands with NamedCommand
-    //    NamedCommands.registerCommand("ElevatorUp",ElevatorUp );
-          // try {
-          //   pathList= PathPlannerAuto.getPathGroupFromAutoFile("auto1");
-          //     } catch (IOException e) {
-          //       System.out.println("IOException :");e.printStackTrace();
-          //       } catch (ParseException e) {
-          //       System.out.println("ParseException  :");e.printStackTrace();
-    // }
+    try { 
+          FileWriter fileWriter = new FileWriter("output.txt");  
+          BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+          bufferedWriter.close();
+        } catch (IOException e) { e.printStackTrace(); }
+    }
   }
 
-    public void displayPathData(String name, Trajectory passedTrajectory,boolean toMirror,boolean toFlip) {
-      Trajectory a_trajectory = passedTrajectory;
-      //publish paths to Field2d 
-          if (toFlip && toMirror){
-           // m_field.getObject(name + " mirror_flip").setPoses(currentPath.flipPath().mirrorPath().getPathPoses()); 
-          } else {
-              if(toMirror){
-              //  m_field.getObject(name + " mirror").setPoses(currentPath.mirrorPath().getPathPoses());
-              } 
-              if (toFlip){
-              // m_field.getObject(name + " flip").setPoses(currentPath.flipPath().mirrorPath().getPathPoses()); 
-              }
-            // m_field.getObject(name + " primary").setPoses(currentPath.mirrorPath().getPathPoses());
-          }
+    public void displayPathData(String name, PathPlannerPath current) {
+      // Trajectory a_trajectory = passedTrajectory;
+      // publish paths to Field2d 
+      
           // add pimary and converted trajectory path to field2d
           m_field.getObject(name+"pose1").setPose(startPose);
-          m_field.getObject(name + " primary").setPoses(currentPath.getPathPoses());
+          m_field.getObject(name + " primary").setPoses(current.getPathPoses());
           m_field.getObject(name+"pose2").setPose(endPose);
-          //m_field.getObject(name + " trajectory").setTrajectory(a_trajectory);
-        
-        // m_field.getObject("trajectory").setTrajectory(ChangePathPlannerPathtoTrajectory(currentPath,true ) );
-        // overlay starting ending pose with correct angle
-          // m_field.getObject("start").setPose( new Pose2d(currentPath.getWaypoints().get(0).anchor(), currentPath.getIdealStartingState().rotation() ) ); 
-          // m_field.getObject("end").setPose( new Pose2d(currentPath.getWaypoints().get(1).anchor(), currentPath.getGoalEndState().rotation() ) ); 
-        // overlay traget mirror path , with starting ending pose with correct angle
-          // m_field.getObject("trajectory").setTrajectory(ChangePathPlannerPathtoTrajectory(currentPath.mirrorPath(),true ) );
-          // m_field.getObject("start").setPose( new Pose2d(currentPath.mirrorPath().getWaypoints().get(0).anchor(), currentPath.mirrorPath().getIdealStartingState().rotation() ) ); 
-          // m_field.getObject("end").setPose( new Pose2d(currentPath.mirrorPath().getWaypoints().get(1).anchor(), currentPath.mirrorPath().getGoalEndState().rotation() ) ); 
     } 
   
 
@@ -184,13 +156,6 @@ public class Robot extends TimedRobot {
      * starting to convert a specific pathPlannerPath to wpilib trajectory 
      * this should be method or own utility class for conversion    */
 
-    // FileOutputStream stream = new FileOutputStream()
-    // try {
-    //    content = new BufferedInputStream();
-    // } catch (Exception e) {
-    //   System.out.println("File output stream: " + e);
-    // }
-
     try {
       pointList.clear();
       trimList.clear();
@@ -219,19 +184,22 @@ public class Robot extends TimedRobot {
 
       
       // setting up print of pathPlanning path 
-      System.out.println("***** Path: "+ path.name.toString() + "***** \n");
-        System.out.println("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
-        System.out.println("List.of ( "); 
+      try {
+      bufferedWriter.write("***** Path: "+ path.name.toString() + "***** \n");
+      bufferedWriter.write("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
+      bufferedWriter.write("List.of ( "); 
         for (int j=0; j<trimList.size();j++)  {
             if (j==trimList.size()-1) {   //is last waypoint, use different closing characters
-              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+              bufferedWriter.write( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
             } else { // report out values of waypoints
-              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
+              bufferedWriter.write( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
             }
           }
-        System.out.println("  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config);" );
-        System.out.println("\n *****END PATH***** ");
-
+          bufferedWriter.write("  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config);" );
+          bufferedWriter.write("\n *****END PATH***** ");
+      } catch (Exception e) {
+        System.out.println("exception : " + e.toString()); 
+      }
 }
 
   // method to convert pathplannerpath to tarjectory 
