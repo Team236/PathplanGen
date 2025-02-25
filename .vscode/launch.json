@@ -8,6 +8,20 @@
       "type": "java",
       "name": "Main",
       "request": "launch",
+      "mainClass": "frc.Main",
+      "projectName": "PathplanGen"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
+      "projectName": "PathplanGen"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
       "mainClass": "frc.robot.Main",
       "projectName": "Elevator-Sim"
     },
