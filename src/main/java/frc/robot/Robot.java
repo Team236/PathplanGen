@@ -173,8 +173,8 @@ public class Robot extends TimedRobot {
       // setting up print of pathPlanning path 
     try {
       bufferedWriter.write("\n ***** Path: "+ path.name.toString() + "***** \n");
-      bufferedWriter.write("\n  new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
-      bufferedWriter.write("\n List.of ( ");
+      bufferedWriter.write("\n new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
+      bufferedWriter.write("\n  List.of ( ");
 
       
         for (int k=0; k < exportList.size(); k++)  {
@@ -184,8 +184,8 @@ public class Robot extends TimedRobot {
               bufferedWriter.write( "\n    new Translation2d( " + exportList.get(k).getX()+", " + exportList.get(k).getY() + ")," );
             }
         }  // for loop
-        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +")),\n  config);" );
-        bufferedWriter.write("\n *****END PATH***** \n");
+        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +")),\n  config );" );
+        bufferedWriter.write("\n\n *****END PATH***** \n");
 
 
     } catch (Exception e) {
