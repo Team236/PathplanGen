@@ -76,22 +76,11 @@ public class Robot extends TimedRobot {
         System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );
       }       
           
-      ExportPathPlannerPathData(currentPath);
-          // trajList.add(ChangePathPlannerPathtoTrajectory(currentPath,false));
-          
+                
       ExportPathPlannerPathData(currentPath);
           // trajList.add(ChangePathPlannerPathtoTrajectory(currentPath,false));
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.mirrorPath(),false);
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.flipPath(),false);
-
-        // These lines publish the data to the field2d 
-          //  SmartDashboard.putData("Field", m_field);
-          //  this.displayPathData(str,currentPath); 
-    }
-
-    try { bufferedWriter.close();  } catch (IOException e) { e.printStackTrace(); }
-   
-  }   // Robot constructor
 
         // These lines publish the data to the field2d 
           //  SmartDashboard.putData("Field", m_field);
@@ -184,7 +173,7 @@ public class Robot extends TimedRobot {
       // setting up print of pathPlanning path 
     try {
       bufferedWriter.write("\n ***** Path: "+ path.name.toString() + "***** \n");
-      bufferedWriter.write("\n   new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
+      bufferedWriter.write("\n  new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
       bufferedWriter.write("\n List.of ( ");
 
       
