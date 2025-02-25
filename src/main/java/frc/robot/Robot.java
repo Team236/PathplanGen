@@ -63,6 +63,7 @@ public class Robot extends TimedRobot {
     // PATHPLANNER - read specific path into currentpath from pathplanner file 
     // keep this and other reads early in Robot 
     
+    
     stringList = new ArrayList<>();
     stringList.add("start");
     stringList.add("leg2");
@@ -77,8 +78,20 @@ public class Robot extends TimedRobot {
           
       ExportPathPlannerPathData(currentPath);
           // trajList.add(ChangePathPlannerPathtoTrajectory(currentPath,false));
+          
+      ExportPathPlannerPathData(currentPath);
+          // trajList.add(ChangePathPlannerPathtoTrajectory(currentPath,false));
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.mirrorPath(),false);
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.flipPath(),false);
+
+        // These lines publish the data to the field2d 
+          //  SmartDashboard.putData("Field", m_field);
+          //  this.displayPathData(str,currentPath); 
+    }
+
+    try { bufferedWriter.close();  } catch (IOException e) { e.printStackTrace(); }
+   
+  }   // Robot constructor
 
         // These lines publish the data to the field2d 
           //  SmartDashboard.putData("Field", m_field);
