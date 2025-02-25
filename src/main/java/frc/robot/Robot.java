@@ -4,24 +4,15 @@
 
 package frc.robot;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
-
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.path.PathPoint;
-import com.pathplanner.lib.util.FileVersionException;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -47,25 +38,27 @@ public class Robot extends TimedRobot {
   
   private static Field2d m_field = new Field2d();
 
-  private PathPlannerPath currentPath,flipCurrentPath;
-  private List<String> stringList;
-  private List<PathPlannerPath> pathList;
+  private PathPlannerPath currentPath; //,flipCurrentPath;
   private Rotation2d startRotation, endRotation;
-  private List<PathPoint> pointList = new ArrayList<>();
-  private List<Translation2d> trimList = new ArrayList<>();
   private Pose2d startPose, endPose;
-  
-  public List<Translation2d> midWaypoints = new ArrayList<>();
   private Translation2d start, end;
+
+  private List<String> stringList;
+  private List<Translation2d> trimList = new ArrayList<>();
+  private List<Trajectory> trajList = new ArrayList<>();
+  public  List<Translation2d> midWaypoints = new ArrayList<>();
+  
   private RobotConfig roboConfig;
-  private FileOutputStream fileOut;
   private BufferedWriter bufferedWriter;
     
-// private List<Translation2d> interiorWaypoints = null;
-// private List<Waypoint> waypointList = null;
+  // private List<Translation2d> interiorWaypoints = null;
+  // private List<Waypoint> waypointList = null;
 
   public Robot() {
-    bufferedWriter = new BufferedWriter(null);
+    // define the writer object and file to output to
+    try { 
+      bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\output2.txt"));
+    } catch (IOException e) { e.printStackTrace(); }
 
     // PATHPLANNER - read specific path into currentpath from pathplanner file 
     // keep this and other reads early in Robot 
@@ -76,22 +69,16 @@ public class Robot extends TimedRobot {
     stringList.add("New Path");
     // stringList.add("RightRight-E");
     // stringList.add("Reef-K_Coral-10");
-    System.out.println(stringList.toString());
+    
 
     for (String str : stringList) {
      try {   
       currentPath = PathPlannerPath.fromPathFile(str);
-      } catch (IOException e) {     //  could convert to single Exception catch
-        System.out.println("IO exception currentPath read :");e.printStackTrace();
-      } catch (ParseException e) {
-        System.out.println("ParseException currentPath read :");e.printStackTrace();
-      }  catch (FileVersionException e) {
-        System.out.println("FileVersionException currentPath read :");e.printStackTrace();
       }  catch (Exception e ) { 
-        System.out.println("Exception currentPath read :");e.printStackTrace();
+        System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );
       }       
-          ExportPathPlannerPath(currentPath);
-          //Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath,false);
+          ExportPathPlannerPathData(currentPath);
+          trajList.add(ChangePathPlannerPathtoTrajectory(currentPath,false));
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.mirrorPath(),false);
             // Trajectory traj = ChangePathPlannerPathtoTrajectory(currentPath.flipPath(),false);
             this.displayPathData(str,currentPath); 
@@ -104,17 +91,17 @@ public class Robot extends TimedRobot {
     }
   }
 
-    public void displayPathData(String name, PathPlannerPath current) {
-      // Trajectory a_trajectory = passedTrajectory;
-      // publish paths to Field2d 
-      
-          // add pimary and converted trajectory path to field2d
-          m_field.getObject(name+"pose1").setPose(startPose);
-          m_field.getObject(name + " primary").setPoses(current.getPathPoses());
-          m_field.getObject(name+"pose2").setPose(endPose);
-    } 
+  public void displayPathData(String name, PathPlannerPath current) {
+    // Trajectory a_trajectory = passedTrajectory;
+    // publish paths to Field2d 
+    
+      // add pimary and converted trajectory path to field2d
+      m_field.getObject(name+"pose1").setPose(startPose);
+      m_field.getObject(name + " primary").setPoses(current.getPathPoses());
+      m_field.getObject(name+"pose2").setPose(endPose);
+  } 
   
-
+  
   @Override
   public void robotPeriodic() {
     // Update the telemetry, including mechanism visualization, regardless of mode.
@@ -151,40 +138,41 @@ public class Robot extends TimedRobot {
   }
 
   // method to convert pathplannerpath to tarjectory 
-  public void ExportPathPlannerPath(PathPlannerPath path) {
+  public void ExportPathPlannerPathData(PathPlannerPath path) {
     /* 
      * starting to convert a specific pathPlannerPath to wpilib trajectory 
      * this should be method or own utility class for conversion    */
+    
+    List<PathPoint> pointList = new ArrayList<>();
+    List<Translation2d> exportList = new ArrayList<>();
 
     try {
-      pointList.clear();
-      trimList.clear();
-      pointList= path.getAllPathPoints();
+      pointList = path.getAllPathPoints();
       } catch (Exception e) { 
-        System.out.println("error" + e); 
+        System.out.println("get all points error" + e.getStackTrace().toString() ); 
       }
 
-          for (PathPoint  point : pointList) {
-           if ( pointList.indexOf(point)%3 !=0 ) {
-              trimList.add(point.position);
-           } else {  /* skip the point do nothing  */   }
-          }
+    for (PathPoint  point : pointList ) {
+      if ( pointList.indexOf(point)%3 !=0 ) {
+          exportList.add(point.position);
+      } else {  /* skip the point do nothing  */   }
+    }
 
-      // remove the LAST and FIRST entree without modifying original pointList
-      trimList.remove(0 );              // FIRST pose2d position removed
-      trimList.remove(trimList.size()-1);    // LAST pose2d position removed
+    // remove the LAST and FIRST entree without modifying original pointList
+    exportList.remove(0 );              // FIRST pose2d position removed
+    exportList.remove(exportList.size()-1);    // LAST pose2d position removed
 
-        start = path.getWaypoints().get(0).anchor().div(1);
-        end = path.getWaypoints().get(1).anchor().div(1);
-        startRotation = path.getIdealStartingState().rotation();
-        endRotation = path.getGoalEndState().rotation();
+      start = path.getWaypoints().get(0).anchor().div(1);
+      end = path.getWaypoints().get(1).anchor().div(1);
+      startRotation = path.getIdealStartingState().rotation();
+      endRotation = path.getGoalEndState().rotation();
 
-      startPose = new Pose2d( start , startRotation);
-      endPose = new Pose2d(end , endRotation);
+    startPose = new Pose2d( start , startRotation);
+    endPose = new Pose2d(end , endRotation);
 
       
       // setting up print of pathPlanning path 
-      try {
+    try {
       bufferedWriter.write("***** Path: "+ path.name.toString() + "***** \n");
       bufferedWriter.write("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
       bufferedWriter.write("List.of ( "); 
@@ -197,9 +185,9 @@ public class Robot extends TimedRobot {
           }
           bufferedWriter.write("  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config);" );
           bufferedWriter.write("\n *****END PATH***** ");
-      } catch (Exception e) {
+    } catch (Exception e) {
         System.out.println("exception : " + e.toString()); 
-      }
+    }
 }
 
   // method to convert pathplannerpath to tarjectory 
@@ -207,19 +195,20 @@ public class Robot extends TimedRobot {
     /* 
      * starting to convert a specific pathPlannerPath to wpilib trajectory 
      * this should be method or own utility class for conversion    */
-    try {
-      pointList.clear();
-      trimList.clear();
-      pointList= path.getAllPathPoints();
-      } catch (Exception e) { 
-        System.out.println("error" + e); 
-      }
 
-          for (PathPoint  point : pointList) {
-           if ( pointList.indexOf(point)%3 !=0 ) {
-              trimList.add(point.position);
-           } else {  /* skip the point do nothing  */   }
-          }
+    List<PathPoint> pointList = new ArrayList<>();
+    List<Translation2d> trimList = new ArrayList<>();
+    
+    try {
+      pointList= path.getAllPathPoints();
+        for (PathPoint  point : pointList) {
+          if ( pointList.indexOf(point)%3 !=0 ) {
+            trimList.add(point.position);
+          } else {  /* skip the point do nothing  */ }
+        } 
+    } catch (Exception e)  {
+        System.out.println("getAllPathPoints "+ e.getStackTrace().toString() );
+    }
 
       // remove the LAST and FIRST entree without modifying original pointList
       trimList.remove(0 );              // FIRST pose2d position removed
@@ -235,19 +224,21 @@ public class Robot extends TimedRobot {
 
       TrajectoryConfig config = new TrajectoryConfig(4, 3.9) ;
 
-      // setting up print of pathPlanning path 
-      System.out.println("***** Path: "+ path.name.toString() + "***** \n");
-        System.out.println("new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startPose.getRotation().getRadians() +") )," );
-        System.out.println("List.of ( "); 
+      /* setting up print of pathPlanning path */
+      try {
+      bufferedWriter.write("\n ***** Path: "+ path.name.toString() + "***** \n");
+      bufferedWriter.write("\n new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
+      bufferedWriter.write("\n List.of ( \n"); 
         for (int j=0; j<trimList.size();j++)  {
             if (j==trimList.size()-1) {   //is last waypoint, use different closing characters
-              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
+              bufferedWriter.write( "\n    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + "))," );
             } else { // report out values of waypoints
-              System.out.println( "    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
-            }
+              bufferedWriter.write( "\n    new Translation2d( " + trimList.get(j).getX()+", " + trimList.get(j).getY() + ")," );
+            } 
           }
-        System.out.println("  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + +endPose.getRotation().getRadians() +")),\n config);" );
-        System.out.println("\n *****END PATH***** ");
+          bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +")),\n config);" );
+          bufferedWriter.write("\n *****END PATH***** \n");
+      } catch (Exception e) { e.printStackTrace();  }
 
     // convert to trajectory 
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -257,6 +248,12 @@ public class Robot extends TimedRobot {
             endPose  ,
             config  
             );
+
+    // try {
+    //   bufferedWriter.write(exampleTrajectory.toString());
+    // } catch (Exception e) {
+    //   e.getStackTrace().toString();
+    // }
       
     return exampleTrajectory;
 }
