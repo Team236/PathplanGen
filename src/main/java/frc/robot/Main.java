@@ -15,32 +15,34 @@ import com.pathplanner.lib.path.PathPlannerPath;
  * call.
  */
 public final class Main{
-  private Main() {}
 
+  private static Publisher publisher;
+  
+  private Main() {  }
+  
   /**
-   * Main initialization function. Do not perform any initialization here.
-   *
-   * <p>If you change your main robot class, change the parameter type.
+   * Main initialization function. 
    */
   public static void main(String... args) {
     
-    Publisher publisher = new Publisher();
+    // Publisher publisher = new Publisher("output-10");
 
     List<String> myStringList = new ArrayList<>();
+    myStringList.add("Reef-K_Coral-10");
     myStringList.add("start");
     myStringList.add("leg2");
     myStringList.add("New Path");
-
-    for (String str : myStringList) {
-     try {   
-        PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
-        publisher.ExportPathPlannerPathData(currentPath);
-      }  catch (Exception e ) { 
-        System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );
-      }    
-
-      publisher.closeReader();
     
+
+  for (String str : myStringList) {
+         
+        publisher = new Publisher(str + ".txt");
+        try {
+            PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
+            publisher.ExportPathPlannerPathData(currentPath);
+            } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
+        publisher.closeReader();
+        publisher = null;
     }
   }
 }

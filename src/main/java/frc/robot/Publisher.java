@@ -33,20 +33,15 @@ public class Publisher  {
   // private List<Translation2d> interiorWaypoints = null;
   // private List<Waypoint> waypointList = null;
 
-  public Publisher() {
-    // define the writer object and file to output to
-    try { 
-      bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\output1.txt"));
-    } catch (IOException e) { e.printStackTrace(); }
-
+  public Publisher(String outputFileName) {
+      // define the writer object and file to output to
+      try { 
+        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName) );
+      } catch (IOException e) { e.printStackTrace(); }
   }
 
   public void closeReader() {
-    try { 
-      bufferedWriter.close();  
-    } catch (IOException e) { 
-      e.printStackTrace();  
-    }
+    try {  bufferedWriter.close();  } catch (IOException e) {e.printStackTrace();  }
   }
 
   // method to Export pathplannerpath to file without simulation
@@ -70,10 +65,12 @@ public class Publisher  {
       } else {  /* skip the point do nothing  */   }
     }
 
-    // remove the LAST and FIRST entree without modifying original pointList
-    exportList.remove(0 );              // FIRST pose2d position removed
-    exportList.remove(exportList.size()-1);   // LAST pose2d position removed
-    exportList.remove(exportList.size()-1);   // repeat removal of LAST pose2d position
+    // remove the FISRT and a few off the end without modifying original pointList
+    exportList.remove(0 );              // FIRST translation2d position removed
+    exportList.remove(exportList.size()-1);   // LAST translation2d position removed
+    exportList.remove(exportList.size()-1);   // repeat removal of LAST translation2d 
+    exportList.remove(exportList.size()-1);   // repeat removal of LAST translation2d 
+
 
       start = path.getWaypoints().get(0).anchor().div(1);
       end = path.getWaypoints().get(1).anchor().div(1);
@@ -98,7 +95,7 @@ public class Publisher  {
               bufferedWriter.write( "\n    new Translation2d( " + exportList.get(k).getX()+ ", " + exportList.get(k).getY() + ")," );
             }
         }  // for loop
-        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +")),\n  config );" );
+        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +") ),\n  config );" );
         bufferedWriter.write("\n\n *****END PATH***** \n");
 
 
