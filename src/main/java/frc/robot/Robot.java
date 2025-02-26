@@ -160,6 +160,9 @@ public class Robot extends TimedRobot {
     // remove the LAST and FIRST entree without modifying original pointList
     exportList.remove(0 );              // FIRST pose2d position removed
     exportList.remove(exportList.size()-1);    // LAST pose2d position removed
+    exportList.remove(exportList.size()-1);    // LAST pose2d position removed
+    exportList.remove(exportList.size()-1);    // LAST pose2d position removed
+  
 
       start = path.getWaypoints().get(0).anchor().div(1);
       end = path.getWaypoints().get(1).anchor().div(1);
@@ -184,8 +187,10 @@ public class Robot extends TimedRobot {
               bufferedWriter.write( "\n    new Translation2d( " + exportList.get(k).getX()+", " + exportList.get(k).getY() + ")," );
             }
         }  // for loop
-        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +")),\n  config );" );
+        bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +") ),\n  config );" );
+        bufferedWriter.write("\n waypoints count: " + exportList.size());
         bufferedWriter.write("\n\n *****END PATH***** \n");
+        
 
 
     } catch (Exception e) {
