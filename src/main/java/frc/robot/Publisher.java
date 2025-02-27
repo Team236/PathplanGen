@@ -65,18 +65,27 @@ public class Publisher  {
       } else {  /* skip the point do nothing  */   }
     }
 
-    // remove the FISRT and a few off the end without modifying original pointList
-    exportList.remove(0 );              // FIRST translation2d position removed
-    exportList.remove(exportList.size()-1);   // LAST translation2d position removed
-    exportList.remove(exportList.size()-1);   // repeat removal of LAST translation2d 
-    exportList.remove(exportList.size()-1);   // repeat removal of LAST translation2d 
-
-
       start = path.getWaypoints().get(0).anchor().div(1);
       end = path.getWaypoints().get(1).anchor().div(1);
       startRotation = path.getIdealStartingState().rotation();
-      endRotation = path.getGoalEndState().rotation();
+      endRotation = path.getGoalEndState().rotation(); 
+    
+    // remove the FIRST and a few off the end without modifying original pointList
+    exportList.remove(0 );              // FIRST translation2d position removed
+    double toClose = .05;
+    System.out.println("\n ***** Path: "+ path.name.toString() + "***** tolerance "+ toClose);
+    // this is valid for both increasing and decreasing field positions
+    
+    while( ( Math.abs( end.getX() - exportList.get(exportList.size()-1).getX() ) < toClose )  
+           && ( Math.abs( end.getY() - exportList.get(exportList.size()-1).getY() ) < toClose )   
+           && (exportList.size() > 5) )  // hard minimum of five waypoints
+           {
+              System.out.println("        removing   :" + exportList.get(exportList.size()-1).toString() );
+              exportList.remove(exportList.size()-1);  // repeat removal of LAST translation2d
+           }   
+          System.out.println("to similar - end pose  :" + end.toString() );
 
+ 
     startPose = new Pose2d( start , startRotation);
     endPose = new Pose2d(end , endRotation);
 
