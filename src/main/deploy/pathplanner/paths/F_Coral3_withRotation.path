@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.196627673705937,
-        "y": 7.223132931433053
+        "x": 5.146740858505564,
+        "y": 2.866772655007949
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.573853701104849,
-        "y": 7.245805876638533
+        "x": 4.705206677265501,
+        "y": 2.6044117647058815
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "hgNew"
     },
     {
       "anchor": {
-        "x": 3.8263137114101164,
-        "y": 5.1799056574576
+        "x": 1.6080683624801264,
+        "y": 0.6974960254372014
       },
       "prevControl": {
-        "x": 4.43974296501454,
-        "y": 6.007430864785979
+        "x": 3.85138290167414,
+        "y": 2.1176633878956626
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Reef-L"
+      "linkedName": "wpickup"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 119.99999999999999
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.99999999999999
+    "rotation": 55.00797980144134
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 119.99999999999999
   },
   "useDefaultConstraints": true
 }
