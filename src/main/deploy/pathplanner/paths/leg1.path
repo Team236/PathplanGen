@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.15274058430059,
-        "y": 0.8119944594740286
+        "x": 7.17,
+        "y": 2.83
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.141975298049033,
-        "y": 1.4130483156763178
+        "x": 6.650563809231704,
+        "y": 2.742981161059885
       },
       "isLocked": false,
-      "linkedName": "RightSideRightPosition"
+      "linkedName": "rightside_18mid-of-center"
     },
     {
       "anchor": {
-        "x": 5.035,
-        "y": 2.414
+        "x": 4.958352911410241,
+        "y": 2.5333954076599787
       },
       "prevControl": {
-        "x": 5.908490308024103,
-        "y": 1.6749123901081169
+        "x": 5.769527401420988,
+        "y": 2.6692380256043613
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BlueAlience-E_tape"
+      "linkedName": "Blue-E_centercamera"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 119.32717949045677
   },
   "reversed": false,
   "folder": null,

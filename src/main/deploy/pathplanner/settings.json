@@ -29,8 +29,11 @@
   "bumperOffsetX": 0.0,
   "bumperOffsetY": 0.0,
   "robotFeatures": [
-    "{\"name\":\"Line\",\"type\":\"line\",\"data\":{\"start\":{\"x\":0.2,\"y\":-0.166},\"end\":{\"x\":0.8,\"y\":-0.166},\"strokeWidth\":0.127}}",
-    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.3,\"y\":0.62},\"size\":{\"width\":0.3048,\"length\":0.305},\"borderRadius\":0.02,\"strokeWidth\":0.005,\"filled\":false}}",
-    "{\"name\":\"Limelight\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.33,\"y\":-0.34},\"size\":{\"width\":0.2,\"length\":0.1},\"borderRadius\":0.015,\"strokeWidth\":0.02,\"filled\":false}}"
+    "{\"name\":\"Coral\",\"type\":\"line\",\"data\":{\"start\":{\"x\":0.2,\"y\":-0.166},\"end\":{\"x\":0.8,\"y\":-0.166},\"strokeWidth\":0.127}}",
+    "{\"name\":\"leftOffset\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.3,\"y\":0.62},\"size\":{\"width\":0.305,\"length\":0.305},\"borderRadius\":0.0,\"strokeWidth\":0.005,\"filled\":false}}",
+    "{\"name\":\"Limelight\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.33,\"y\":-0.34},\"size\":{\"width\":0.2,\"length\":0.1},\"borderRadius\":0.015,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"rightOffset\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.3,\"y\":-0.62},\"size\":{\"width\":0.305,\"length\":0.305},\"borderRadius\":0.0,\"strokeWidth\":0.005,\"filled\":false}}",
+    "{\"name\":\"frame\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.0},\"size\":{\"width\":0.762,\"length\":0.762},\"borderRadius\":0.005,\"strokeWidth\":0.015,\"filled\":false}}",
+    "{\"name\":\"18inches\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":-0.28,\"y\":0.69},\"size\":{\"width\":0.4572,\"length\":0.2},\"borderRadius\":0.005,\"strokeWidth\":0.005,\"filled\":false}}"
   ]
 }
