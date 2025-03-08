@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.705206677265501,
-        "y": 2.6044117647058815
+        "x": 4.698807631160572,
+        "y": 2.060492845786963
       },
       "isLocked": false,
       "linkedName": "hgNew"
@@ -20,20 +20,15 @@
         "y": 0.6974960254372014
       },
       "prevControl": {
-        "x": 3.85138290167414,
-        "y": 2.1176633878956626
+        "x": 2.939069952305246,
+        "y": 1.8493243243243238
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "wpickup"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 119.99999999999999
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
