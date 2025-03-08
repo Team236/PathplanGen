@@ -28,14 +28,16 @@ public final class Main{
     // Publisher publisher = new Publisher("output-10");
 
     List<String> myStringList = new ArrayList<>();
-    myStringList.add("Coral3_D");
-    myStringList.add("F_Coral3_withRotation");
-    myStringList.add("Reef-L_Coral-10");
-    myStringList.add("RightInner_F");
-    myStringList.add("RightMid_F_tape");
-    myStringList.add("RightRight-E_tape");
-    myStringList.add("RightRight_F");
-    myStringList.add("RightRight_F_tape");
+    // myStringList.add("Coral3_D");
+    // myStringList.add("F_Coral3_withRotation");
+    // myStringList.add("Reef-L_Coral-10");
+    // myStringList.add("RightInner_F");
+    // myStringList.add("RightMid_F_tape");
+    // myStringList.add("RightRight-E_tape");
+    // myStringList.add("RightRight_F");
+    // myStringList.add("RightRight_F_tape");
+    myStringList.add("leg1");
+    myStringList.add("leg2");
 
     
 
