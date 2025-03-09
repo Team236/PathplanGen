@@ -28,10 +28,16 @@ public final class Main{
     // Publisher publisher = new Publisher("output-10");
 
     List<String> myStringList = new ArrayList<>();
-    myStringList.add("Reef-K_Coral-10");
-    myStringList.add("start");
+    myStringList.add("BlueLL-leg1E-18");
     myStringList.add("leg2");
-    myStringList.add("New Path");
+
+    myStringList.add("leg3_from3toC_withCameracentered");
+    myStringList.add("leg2a");
+    myStringList.add("leg2b");
+    myStringList.add("BlueRR-leg1E");
+    myStringList.add("BlueRR12-E");
+    myStringList.add("BlueLL-leg1E-12");
+    myStringList.add("RightRight12-E");
     
 
   for (String str : myStringList) {

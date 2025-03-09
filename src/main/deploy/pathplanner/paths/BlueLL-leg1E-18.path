@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.15274058430059,
-        "y": 0.8119944594740286
+        "x": 7.18,
+        "y": 2.83
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.141975298049033,
-        "y": 1.4130483156763178
+        "x": 6.122867153969118,
+        "y": 2.8046362215679372
       },
       "isLocked": false,
-      "linkedName": "RightSideRightPosition"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.035,
-        "y": 2.414
+        "x": 4.872051438410042,
+        "y": 2.706828847741335
       },
       "prevControl": {
-        "x": 5.908490308024103,
-        "y": 1.6749123901081169
+        "x": 5.725009568379891,
+        "y": 3.2183316699546074
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BlueAlience-E_tape"
+      "linkedName": "hgNew"
     }
   ],
   "rotationTargets": [],

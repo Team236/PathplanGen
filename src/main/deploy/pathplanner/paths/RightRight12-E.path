@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.872051438410042,
-        "y": 2.706828847741335
+        "x": 7.15274058430059,
+        "y": 0.8119944594740286
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.338791781353237,
-        "y": 1.5823826741956382
+        "x": 6.11495309294578,
+        "y": 0.600526040388367
       },
       "isLocked": false,
-      "linkedName": "hgNew"
+      "linkedName": "RightSideRightPosition"
     },
     {
       "anchor": {
-        "x": 1.6080683624801264,
-        "y": 0.6974960254372014
+        "x": 5.010116876206303,
+        "y": 2.4777747915887436
       },
       "prevControl": {
-        "x": 2.652432361020126,
-        "y": 1.9486692897963576
+        "x": 5.220848982243531,
+        "y": 2.343268362429708
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "wpickup"
+      "linkedName": "BlueAlience-E_tape"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 54.0
+    "rotation": 119.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
