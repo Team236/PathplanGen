@@ -8,34 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-<<<<<<<< HEAD:src/main/deploy/pathplanner/paths/RightRight12-E.path
-        "x": 6.11495309294578,
-        "y": 0.600526040388367
-========
         "x": 6.650563809231704,
         "y": 2.742981161059885
->>>>>>>> 6bfe61a9fd57faa95747f364e3acee79271cf1d9:src/main/deploy/pathplanner/paths/leg1.path
       },
       "isLocked": false,
       "linkedName": "rightside_18mid-of-center"
     },
     {
       "anchor": {
-<<<<<<<< HEAD:src/main/deploy/pathplanner/paths/RightRight12-E.path
         "x": 5.010116876206303,
         "y": 2.4777747915887436
       },
       "prevControl": {
-        "x": 5.220848982243531,
-        "y": 2.343268362429708
-========
         "x": 4.958352911410241,
         "y": 2.5333954076599787
       },
       "prevControl": {
         "x": 5.769527401420988,
         "y": 2.6692380256043613
->>>>>>>> 6bfe61a9fd57faa95747f364e3acee79271cf1d9:src/main/deploy/pathplanner/paths/leg1.path
       },
       "nextControl": null,
       "isLocked": false,

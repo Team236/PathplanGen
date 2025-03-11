@@ -35,17 +35,46 @@ public final class Main{
     myStringList.add("leg2a");
     myStringList.add("leg2b");
     myStringList.add("BlueRR-leg1E");
-    myStringList.add("BlueRR12-E");
     myStringList.add("BlueLL-leg1E-12");
     myStringList.add("RightRight12-E");
     
 
+
   for (String str : myStringList) {
-         
+    // publish normal path     
         publisher = new Publisher(str + ".txt");
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
-            publisher.ExportPathPlannerPathData(currentPath);
+              publisher.ExportPathPlannerPathData(currentPath);
+            } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
+        publisher.closeReader();
+        publisher = null;
+
+    // publish mirrored path     
+    publisher = new Publisher(str + "-mirror.txt");
+        try {
+            PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
+            // publisher.ExportPathPlannerPathData(currentPath);
+               publisher.ExportPathPlannerPathData(currentPath.mirrorPath());
+            // publisher.ExportPathPlannerPathData(currentPath.flipPath());
+            } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
+        publisher.closeReader();
+        publisher = null;
+
+    // publish flipped path     
+        publisher = new Publisher(str + "-flipped.txt");
+        try {
+            PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
+            publisher.ExportPathPlannerPathData(currentPath.flipPath());
+            } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
+        publisher.closeReader();
+        publisher = null;
+
+        // publish flipped and mirrored path     
+        publisher = new Publisher(str + "-mirror_flip.txt");
+        try {
+            PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
+            publisher.ExportPathPlannerPathData(currentPath.flipPath().mirrorPath() );
             } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
         publisher.closeReader();
         publisher = null;
