@@ -28,16 +28,13 @@ public final class Main{
     // Publisher publisher = new Publisher("output-10");
 
     List<String> myStringList = new ArrayList<>();
-    myStringList.add("BlueLL-leg1E-18");
-    myStringList.add("leg2");
+    myStringList.add("BlueR_leg1-18-E");
+    myStringList.add("BlueR_leg2");
+    myStringList.add("BlueR_leg3");
+    myStringList.add("BlueR_leg4_toC");
 
-    myStringList.add("leg3_from3toC_withCameracentered");
-    myStringList.add("leg2a");
-    myStringList.add("leg2b");
-    myStringList.add("BlueRR-leg1E");
-    myStringList.add("BlueRR12-E");
-    myStringList.add("BlueLL-leg1E-12");
-    myStringList.add("RightRight12-E");
+    myStringList.add("BlueR_leg1_wall-12-E");
+    myStringList.add("BlueR_leg1-12-E");
     
 
   for (String str : myStringList) {

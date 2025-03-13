@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BlueLLeg1-18-E"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BlueR_leg2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BlueR_leg3"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": false,
+  "folder": null,
+  "choreoAuto": false
+}
