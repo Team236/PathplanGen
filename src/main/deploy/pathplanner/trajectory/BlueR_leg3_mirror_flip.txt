@@ -1,5 +1,5 @@
 
- ***** Path: BlueR_leg3***** 
+ \**** Path: BlueR_leg3_mirror_flip***** 
 
  new Pose2d( 13.476888348084657, 2.2060528849958176, new Rotation2d(1.0471975511965979) ),
   List.of ( 

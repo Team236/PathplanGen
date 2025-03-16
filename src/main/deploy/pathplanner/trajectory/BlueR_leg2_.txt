@@ -1,5 +1,5 @@
 
- ***** Path: BlueR_leg2***** 
+ \**** Path: BlueR_leg2_***** 
 
  new Pose2d( 4.978717972087955, 2.5006501725468424, new Rotation2d(2.0943951023931953) ),
   List.of ( 

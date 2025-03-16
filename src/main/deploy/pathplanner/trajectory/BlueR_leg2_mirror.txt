@@ -1,5 +1,5 @@
 
- ***** Path: BlueR_leg2***** 
+ \**** Path: BlueR_leg2_mirror***** 
 
  new Pose2d( 4.978717972087955, 5.551251427453158, new Rotation2d(-2.0943951023931953) ),
   List.of ( 

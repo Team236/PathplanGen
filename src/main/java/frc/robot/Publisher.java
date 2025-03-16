@@ -27,16 +27,17 @@ public class Publisher  {
 
   // private List<Trajectory> trajList = new ArrayList<>();
   public  List<Translation2d> midWaypoints = new ArrayList<>();
-  
+  private String mode;
   private BufferedWriter bufferedWriter;
     
   // private List<Translation2d> interiorWaypoints = null;
   // private List<Waypoint> waypointList = null;
 
-  public Publisher(String outputFileName) {
+  public Publisher(String outputFileName, String passedMode) {
+      mode = passedMode;
       // define the writer object and file to output to
       try { 
-        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName) );
+        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + "_" + mode +".txt") );
       } catch (IOException e) { e.printStackTrace(); }
   }
 
@@ -73,7 +74,7 @@ public class Publisher  {
     // remove the FIRST and a few off the end without modifying original pointList
     exportList.remove(0 );              // FIRST translation2d position removed
     double toClose = .05;
-    System.out.println("\n ***** Path: "+ path.name.toString() + "***** tolerance "+ toClose);
+    System.out.println("\n //***** Path: "+ path.name.toString() + "***** tolerance "+ toClose);
     // this is valid for both increasing and decreasing field positions
     
     while( ( Math.abs( end.getX() - exportList.get(exportList.size()-1).getX() ) < toClose )  
@@ -92,7 +93,7 @@ public class Publisher  {
       
       // setting up print of pathPlanning path 
     try {
-      bufferedWriter.write("\n ***** Path: "+ path.name.toString() + "***** \n");
+      bufferedWriter.write("\n \\**** Path: "+ path.name.toString() + "_" + mode + "***** \n");
       bufferedWriter.write("\n new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
       bufferedWriter.write("\n  List.of ( ");
 

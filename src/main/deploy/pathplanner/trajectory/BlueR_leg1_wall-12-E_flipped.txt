@@ -1,5 +1,5 @@
 
- //***** Path: BlueR_leg1_wall-12-E***** 
+ \**** Path: BlueR_leg1_wall-12-E_flipped***** 
 
  new Pose2d( 10.377958912991806, 7.2442007425909125, new Rotation2d(0.0) ),
   List.of ( 

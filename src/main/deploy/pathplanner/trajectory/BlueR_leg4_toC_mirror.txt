@@ -1,5 +1,5 @@
 
- ***** Path: BlueR_leg4_toC***** 
+ \**** Path: BlueR_leg4_toC_mirror***** 
 
  new Pose2d( 1.6080683624801264, 7.354405574562799, new Rotation2d(-0.9424777960769379) ),
   List.of ( 

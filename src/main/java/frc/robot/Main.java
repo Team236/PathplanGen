@@ -39,7 +39,8 @@ public final class Main{
 
   for (String str : myStringList) {
     // publish normal path     
-        publisher = new Publisher(str + ".txt");
+    String mode = "";
+    publisher = new Publisher(str ,mode);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
               publisher.ExportPathPlannerPathData(currentPath);
@@ -48,7 +49,8 @@ public final class Main{
         publisher = null;
 
     // publish mirrored path     
-    publisher = new Publisher(str + "-mirror.txt");
+    mode = "mirror";
+    publisher = new Publisher(str ,mode);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
             // publisher.ExportPathPlannerPathData(currentPath);
@@ -59,7 +61,8 @@ public final class Main{
         publisher = null;
 
     // publish flipped path     
-        publisher = new Publisher(str + "-flipped.txt");
+    mode = "flipped";
+    publisher = new Publisher(str ,mode);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
             publisher.ExportPathPlannerPathData(currentPath.flipPath());
@@ -67,8 +70,9 @@ public final class Main{
         publisher.closeReader();
         publisher = null;
 
-        // publish flipped and mirrored path     
-        publisher = new Publisher(str + "-mirror_flip.txt");
+        // publish flipped and mirrored path  
+        mode = "mirror_flip";
+        publisher = new Publisher(str ,mode);   
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
             publisher.ExportPathPlannerPathData(currentPath.flipPath().mirrorPath() );
