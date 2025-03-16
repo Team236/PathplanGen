@@ -24,25 +24,20 @@ public class Publisher  {
   private Rotation2d startRotation, endRotation;
   private Pose2d startPose, endPose;
   private Translation2d start, end;
+  private String outputFileName;
 
-  // private List<Trajectory> trajList = new ArrayList<>();
   public  List<Translation2d> midWaypoints = new ArrayList<>();
-  private String mode;
   private BufferedWriter bufferedWriter;
     
   // private List<Translation2d> interiorWaypoints = null;
   // private List<Waypoint> waypointList = null;
 
-  public Publisher(String outputFileName, String passedMode) {
-      mode = passedMode;
-      // define the writer object and file to output to
+  public Publisher(String fileName) {
+    outputFileName = fileName;
+    // define the writer object and file to output to
+    
       try { 
-        if (mode != "") { 
-          outputFileName = outputFileName + "_" + mode;
-        }
-        
         bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + ".txt") );
-        
       } catch (IOException e) { e.printStackTrace(); }
     
   }
@@ -80,7 +75,7 @@ public class Publisher  {
     // remove the FIRST and a few off the end without modifying original pointList
     exportList.remove(0 );              // FIRST translation2d position removed
     double toClose = .05;
-    System.out.println("\n //***** Path: "+ path.name.toString() + "***** tolerance "+ toClose + " *****// \n");
+    System.out.println("\n *** Path: "+ path.name.toString() + " with tolerance ="+ toClose + " ***** \n");
     // this is valid for both increasing and decreasing field positions
     
     while( ( Math.abs( end.getX() - exportList.get(exportList.size()-1).getX() ) < toClose )  
@@ -99,16 +94,16 @@ public class Publisher  {
       
       // setting up print of pathPlanning path 
     try {
-      bufferedWriter.write("\n \\**** Path: "+ path.name.toString() + "_" + mode + "***** \n");
+      bufferedWriter.write("\n // taken from Path: "+ outputFileName);
       bufferedWriter.write("\n new Pose2d( "+startPose.getTranslation().getX()+", " + startPose.getTranslation().getY()+", new Rotation2d(" + startRotation.getRadians() +") )," );
       bufferedWriter.write("\n  List.of ( ");
 
       
         for (int k=0; k < exportList.size(); k++)  {
             if (k==(exportList.size()-1)) {   //is last waypoint, use different closing characters
-              bufferedWriter.write( "\n    new Translation2d( " + exportList.get(k).getX()+ ", " + exportList.get(k).getY() + "))," );
+              bufferedWriter.write( "\n       new Translation2d( " + exportList.get(k).getX()+ ", " + exportList.get(k).getY() + "))," );
             } else { 
-              bufferedWriter.write( "\n    new Translation2d( " + exportList.get(k).getX()+ ", " + exportList.get(k).getY() + ")," );
+              bufferedWriter.write( "\n       new Translation2d( " + exportList.get(k).getX()+ ", " + exportList.get(k).getY() + ")," );
             }
         }  // for loop
         bufferedWriter.write("\n  new Pose2d( "+ endPose.getTranslation().getX()+", " + endPose.getTranslation().getY()+", new Rotation2d(" + endRotation.getRadians() +") ),\n  config );" );
