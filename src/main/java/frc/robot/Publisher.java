@@ -37,8 +37,14 @@ public class Publisher  {
       mode = passedMode;
       // define the writer object and file to output to
       try { 
-        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + "_" + mode +".txt") );
+        if (mode != "") { 
+          outputFileName = outputFileName + "_" + mode;
+        }
+        
+        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + ".txt") );
+        
       } catch (IOException e) { e.printStackTrace(); }
+    
   }
 
   public void closeReader() {
@@ -74,7 +80,7 @@ public class Publisher  {
     // remove the FIRST and a few off the end without modifying original pointList
     exportList.remove(0 );              // FIRST translation2d position removed
     double toClose = .05;
-    System.out.println("\n //***** Path: "+ path.name.toString() + "***** tolerance "+ toClose);
+    System.out.println("\n //***** Path: "+ path.name.toString() + "***** tolerance "+ toClose + " *****// \n");
     // this is valid for both increasing and decreasing field positions
     
     while( ( Math.abs( end.getX() - exportList.get(exportList.size()-1).getX() ) < toClose )  
