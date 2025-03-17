@@ -1,5 +1,5 @@
 
- // taken from Path: BlueR_leg4_toC_mirror_flip
+ // taken from Path: BlueR_leg4_toC_mirror_flip (RED-left)
  new Pose2d( 15.94018203751987, 0.6974960254372018, new Rotation2d(2.199114857512855) ),
   List.of ( 
        new Translation2d( 15.717738050840083, 0.9686595273011758),

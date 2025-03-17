@@ -1,5 +1,5 @@
 
- // taken from Path: BlueR_leg4_toC_flipped
+ // taken from Path: BlueR_leg4_toC_flipped (RED-RIGHT)
  new Pose2d( 15.94018203751987, 7.354405574562799, new Rotation2d(-2.199114857512855) ),
   List.of ( 
        new Translation2d( 15.717738050840083, 7.083242072698825),

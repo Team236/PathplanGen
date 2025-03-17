@@ -1,10 +1,10 @@
 
- // taken from Path: BlueR_leg2_mirror_flip
- new Pose2d( 12.569532427912042, 2.500650172546843, new Rotation2d(1.0471975511965979) ),
+ // taken from Path: BlueR_leg2_mirror_flip (RED-left)
+ new Pose2d( 12.664112937147248, 2.7214580978066225, new Rotation2d(1.0471975511965979) ),
   List.of ( 
-       new Translation2d( 12.899049906877593, 2.3333938129699003),
-       new Translation2d( 13.26584229258691, 2.2767240699006717),
-       new Translation2d( 13.469874054980925, 2.2100416080555316)),
+       new Translation2d( 12.9732893924241, 2.5147394938949628),
+       new Translation2d( 13.284534003361035, 2.3181777992777883),
+       new Translation2d( 13.475500372137901, 2.2068542378201474)),
   new Pose2d( 13.476888348084657, 2.2060528849958176, new Rotation2d(1.0471975511965979) ),
   config );
 

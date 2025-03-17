@@ -28,17 +28,14 @@ public class Publisher  {
 
   public  List<Translation2d> midWaypoints = new ArrayList<>();
   private BufferedWriter bufferedWriter;
-    
-  // private List<Translation2d> interiorWaypoints = null;
-  // private List<Waypoint> waypointList = null;
 
   public Publisher(String fileName) {
     outputFileName = fileName;
     // define the writer object and file to output to
     
-      try { 
-        bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + ".txt") );
-      } catch (IOException e) { e.printStackTrace(); }
+    try { 
+       bufferedWriter = new BufferedWriter(new FileWriter(".\\src\\main\\deploy\\pathplanner\\trajectory\\"+ outputFileName + ".txt") );
+    } catch (IOException e) { e.printStackTrace(); }
     
   }
 

@@ -37,8 +37,7 @@ public final class Main{
     // myStringList.add("BlueR_leg1-12-E");
 
   for (String str : myStringList) {
-    // publish normal path     
-    String mode = "";
+    // publish normal path  
     publisher = new Publisher(str);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
@@ -47,21 +46,21 @@ public final class Main{
         publisher.closeReader();
         publisher = null;
 
-    // publish mirrored path     
-    str.concat("_mirror");
-    publisher = new Publisher(str);
+    // publish mirrored path    
+    String str2 = str + "_mirror";
+    //str2.toString().concat("_mirror");
+    publisher = new Publisher(str2);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
-            // publisher.ExportPathPlannerPathData(currentPath);
                publisher.ExportPathPlannerPathData(currentPath.mirrorPath());
-            // publisher.ExportPathPlannerPathData(currentPath.flipPath());
             } catch (Exception e ) { System.out.println("Exception currentPath read :"+ e.getStackTrace().toString() );   }    
         publisher.closeReader();
         publisher = null;
 
     // publish flipped path     
-    str.concat("_flipped");
-    publisher = new Publisher(str);
+    String str3 = str + "_flipped";
+    // str3.toString().concat("_flipped");
+    publisher = new Publisher(str3);
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
             publisher.ExportPathPlannerPathData(currentPath.flipPath());
@@ -69,9 +68,10 @@ public final class Main{
         publisher.closeReader();
         publisher = null;
 
-        // publish flipped and mirrored path  
-        str.concat("_mirror_flip");
-        publisher = new Publisher(str);   
+      // publish flipped and mirrored path
+      String str4 = str + "_mirror_flip";
+      //str4.toString().concat("_mirror_flip");
+      publisher = new Publisher(str4);   
         try {
             PathPlannerPath currentPath = PathPlannerPath.fromPathFile(str);
             publisher.ExportPathPlannerPathData(currentPath.flipPath().mirrorPath() );
