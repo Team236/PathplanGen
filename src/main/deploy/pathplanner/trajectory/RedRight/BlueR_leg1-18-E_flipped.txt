@@ -1,0 +1,15 @@
+
+     // taken from Path: BlueR_leg1-18-E_flipped  (RED-RIGHT)
+     new Pose2d( 10.368250399999997, 5.221901600000001, new Rotation2d(0.0) ),
+          List.of ( 
+               new Translation2d( 10.719533219444637, 5.213997011294367),
+               new Translation2d( 11.11141327429796, 5.168928305102181),
+               new Translation2d( 11.305948257594512, 5.13726384320213),
+               new Translation2d( 11.697746513987795, 5.083483671263146),
+               new Translation2d( 11.89771723888035, 5.0792503813555925),
+               new Translation2d( 12.296703018210298, 5.1550686461010375),
+               new Translation2d( 12.485979692287392, 5.233699158853814)),
+      new Pose2d( 12.664112937147248, 5.330443502193378, new Rotation2d(-1.0471975511965979) ),
+      config );
+
+ *****END PATH***** 

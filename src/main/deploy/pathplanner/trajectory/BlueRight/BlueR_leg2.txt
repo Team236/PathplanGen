@@ -1,0 +1,11 @@
+
+     // taken from Path: BlueR_leg2
+     new Pose2d( 4.884137462852748, 2.7214580978066225, new Rotation2d(2.0943951023931953) ),
+          List.of ( 
+               new Translation2d( 4.574961007575896, 2.514739493894963),
+               new Translation2d( 4.263716396638962, 2.3181777992777883),
+               new Translation2d( 4.072750027862095, 2.206854237820147)),
+     new Pose2d( 4.071362051915341, 2.2060528849958176, new Rotation2d(2.0943951023931953) ),
+     config );
+
+ *****END PATH***** 
